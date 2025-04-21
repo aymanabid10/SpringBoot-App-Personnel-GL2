@@ -12,7 +12,7 @@ import lombok.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name="first_name", nullable = false)
     private String firstName;
@@ -22,11 +22,5 @@ public class Employee {
 
     @Column(name="email", nullable = false)
     private String email;
-
-    public void updateDetailsFrom(Employee updated) {
-        this.firstName = updated.getFirstName();
-        this.lastName = updated.getLastName();
-        this.email = updated.getEmail();
-    }
 
 }

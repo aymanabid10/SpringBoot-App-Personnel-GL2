@@ -11,10 +11,6 @@ public interface EmployeeMapper {
 
     Employee toEntity(EmployeeRequest employeeRequest);
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "firstName", target = "firstName")
-    @Mapping(source = "lastName", target = "lastName")
-    @Mapping(source = "email", target = "email")
     EmployeeResponse toResponse(Employee employee);
 
     void updateEntityFromRequest(EmployeeRequest employeeRequest, @MappingTarget Employee employee);

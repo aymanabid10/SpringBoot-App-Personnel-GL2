@@ -34,7 +34,7 @@ public class EmployeeService {
         return employeeMapper.toResponse(employee);
     }
 
-    public EmployeeResponse updateEmployee(long id, EmployeeRequest employeeRequest) {
+    public EmployeeResponse updateEmployee(Long id, EmployeeRequest employeeRequest) {
         Employee existingEmployee = this.getEmp(id);
         employeeMapper.updateEntityFromRequest(employeeRequest, existingEmployee);
         Employee updatedEmployee = employeeRepository.save(existingEmployee);
