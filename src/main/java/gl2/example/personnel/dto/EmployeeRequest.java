@@ -1,5 +1,6 @@
 package gl2.example.personnel.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -9,11 +10,14 @@ import lombok.*;
 @Builder
 public class EmployeeRequest {
     @NotBlank(message = "First name is mandatory")
+    @Schema(description = "Employee's first name", example = "John")
     private String firstName;
 
     @NotBlank(message = "Last name is mandatory")
+    @Schema(description = "Employee's last name", example = "Doe")
     private String lastName;
 
     @NotBlank(message = "email is mandatory")
+    @Schema(description = "Employee's email address", example = "john.doe@example.com")
     private String email;
 }
