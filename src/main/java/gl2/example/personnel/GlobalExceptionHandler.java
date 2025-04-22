@@ -1,5 +1,7 @@
-package gl2.example.personnel.exception;
+package gl2.example.personnel;
 
+import gl2.example.personnel.dto.ResponseApi;
+import gl2.example.personnel.exception.ResourceNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -29,4 +31,17 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
         return Map.of("error", "Database constraint violation: " + ex.getMostSpecificCause().getMessage());
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseApi<String> handleResourceNotFound(ResourceNotFoundException ex) {
+        return new ResponseApi<>(false, ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseApi<String> handleGenericException(Exception ex) {
+        return new ResponseApi<>(false, "Internal server error: " + ex.getMessage(), null);
+    }
+
 }

@@ -1,5 +1,6 @@
 package gl2.example.personnel.controller;
 
+import gl2.example.personnel.dto.ResponseApi;
 import gl2.example.personnel.dto.EmployeeRequest;
 import gl2.example.personnel.dto.EmployeeResponse;
 import gl2.example.personnel.service.EmployeeService;
@@ -9,12 +10,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/api/employees")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeService employeeService;
@@ -26,8 +28,10 @@ public class EmployeeController {
             @ApiResponse(responseCode = "201", description = "Employee created"),
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
-    public EmployeeResponse createEmployee(@Valid @RequestBody EmployeeRequest employeeRequest){
-        return employeeService.createEmployee(employeeRequest);
+    public ResponseEntity<ResponseApi<EmployeeResponse>> createEmployee(@Valid @RequestBody EmployeeRequest employeeRequest){
+        return new ResponseEntity<>(
+                new ResponseApi<>(true, "Employee created", employeeService.createEmployee(employeeRequest)), HttpStatus.CREATED
+        );
     }
 
     @GetMapping
@@ -46,7 +50,7 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200", description = "Employee found"),
             @ApiResponse(responseCode = "404", description = "Employee not found")
     })
-    public EmployeeResponse getEmployee(@PathVariable Long id){
+    public EmployeeResponse getEmployee(@PathVariable("id") Long id){
         return employeeService.getEmployee(id);
     }
 
@@ -56,8 +60,12 @@ public class EmployeeController {
             @ApiResponse(responseCode = "200", description = "Employee updated"),
             @ApiResponse(responseCode = "404", description = "Employee not found")
     })
-    public EmployeeResponse updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeRequest employee){
-        return employeeService.updateEmployee(id, employee);
+    public ResponseEntity<ResponseApi<EmployeeResponse>> updateEmployee(@PathVariable("id") Long id, @Valid @RequestBody EmployeeRequest employee){
+        EmployeeResponse updated = employeeService.updateEmployee(id, employee);
+        return new ResponseEntity<>(
+                new ResponseApi<>(true, "Employee updated successfully", updated),
+                HttpStatus.OK
+        );
     }
 
     @DeleteMapping("/{id}")
@@ -67,8 +75,9 @@ public class EmployeeController {
             @ApiResponse(responseCode = "404", description = "Employee not found")
     })
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteEmployee(@PathVariable Long id) {
+    public ResponseApi<Void> deleteEmployee(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
+        return new ResponseApi<>(true, "Employee deleted successfully", null);
     }
 
 

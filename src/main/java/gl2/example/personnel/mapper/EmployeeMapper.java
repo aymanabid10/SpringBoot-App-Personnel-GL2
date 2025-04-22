@@ -8,7 +8,6 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface EmployeeMapper {
-
     Employee toEntity(EmployeeRequest employeeRequest);
 
     EmployeeResponse toResponse(Employee employee);

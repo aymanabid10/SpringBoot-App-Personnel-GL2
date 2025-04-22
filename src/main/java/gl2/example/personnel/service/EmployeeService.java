@@ -1,6 +1,7 @@
 package gl2.example.personnel.service;
 import gl2.example.personnel.dto.EmployeeRequest;
 import gl2.example.personnel.dto.EmployeeResponse;
+import gl2.example.personnel.exception.ResourceNotFoundException;
 import gl2.example.personnel.mapper.EmployeeMapper;
 import gl2.example.personnel.model.Employee;
 import gl2.example.personnel.repository.EmployeeRepository;
@@ -42,10 +43,11 @@ public class EmployeeService {
     }
     private Employee getEmp(Long id) {
         return employeeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + id));
     }
 
     public void deleteEmployee(Long id) {
+        Employee employee = this.getEmp(id);
         employeeRepository.deleteById(id);
     }
 }
