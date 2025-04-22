@@ -4,12 +4,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+
+//definition des DTOs
+//le DTO pour les requetes qui communique avec le modèle Employee a traversEmployeeMapper
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class EmployeeRequest {
     @NotBlank(message = "First name is mandatory")
+    //@Schema pour définir les exemples pour la documentation Swagger :
     @Schema(description = "Employee's first name", example = "Aymen")
     private String firstName;
 

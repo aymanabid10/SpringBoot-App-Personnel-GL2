@@ -3,7 +3,8 @@ package gl2.example.personnel.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-
+//En utilise @Data pour génerer les getters, setters, toString, ...
+//@NoArgsConstructor et @AllArgsConstructor pour les beans aussi pour le mapper qui fera le parsing du constructeur
 @Entity
 @Data //@Getter + @Setter
 @NoArgsConstructor

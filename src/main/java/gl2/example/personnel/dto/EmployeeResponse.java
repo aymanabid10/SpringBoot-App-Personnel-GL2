@@ -2,7 +2,8 @@ package gl2.example.personnel.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-@Data
+//le DTO pour les reponses de l'API qui communique avec le modèle Employee a traversEmployeeMapper
+@Data // génerer les getters et les setters avec Lombok + le code devient plus clair
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

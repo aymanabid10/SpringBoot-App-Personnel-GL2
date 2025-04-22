@@ -22,12 +22,14 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED) //Status de la request si elle est executée avec succées
     @Operation(summary = "Create a new employee", description = "Add a new employee to the system")
+    //La Dcoumentation de Swagger pour indiquer les codes de ResponseApi possible
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Employee created"),
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
+    //@Valid pour le parsing des exceptions globales
     public ResponseEntity<ResponseApi<EmployeeResponse>> createEmployee(@Valid @RequestBody EmployeeRequest employeeRequest){
         return new ResponseEntity<>(
                 new ResponseApi<>(true, "Employee created", employeeService.createEmployee(employeeRequest)), HttpStatus.CREATED
@@ -35,7 +37,9 @@ public class EmployeeController {
     }
 
     @GetMapping
+    //La Dcoumentation de Swagger pour indiquer les codes de ResponseApi possible + description de l'endpoint et la méthode
     @Operation(summary = "Getting all employees", description = "Get a list of all employees")
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
