@@ -1,7 +1,6 @@
-package gl2.example.personnel;
+package gl2.example.personnel.exception;
 
 import gl2.example.personnel.dto.ResponseApi;
-import gl2.example.personnel.exception.ResourceNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
